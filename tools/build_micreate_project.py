@@ -54,8 +54,9 @@ for second in range(60):
     save(f"second-{second:02d}.png", rail)
 
 def widget(name, bitmap_list, x, y, width, height, source, default=0):
+    indexed_bitmaps = [f"({index}):{filename}" for index, filename in enumerate(bitmap_list)]
     return {
-        "Shape": "31", "Name": name, "BitmapList": "|".join(bitmap_list),
+        "Shape": "31", "Name": name, "BitmapList": "|".join(indexed_bitmaps),
         "X": str(x), "Y": str(y), "Width": str(width), "Height": str(height),
         "Alpha": "255", "Alignment": "0", "DefaultIndex": str(default),
         "Index_Src": source, "Spacing": "0", "Blanking": "0", "Visible_Src": "0"
