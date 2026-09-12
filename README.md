@@ -26,7 +26,7 @@ AM/PM 1bit
 - `src/watchface-config.json`: 192×490 좌표와 색상 설정
 - `src/preview.html`: 브라우저/에뮬레이터에서 현재 시간을 렌더링하는 독립 미리보기
 - `projects/MiBand9BinaryDotClock/MiBand9BinaryDotClock.fprj`: Mi Create에서 열 수 있는 일반 화면 프로젝트
-- `projects/MiBand9BinaryDotClock/MiBand9BinaryDotClock-AOD.fprj`: 초 틱을 제거한 AOD 프로젝트
+- `projects/MiBand9BinaryDotClock/AOD/MiBand9BinaryDotClock-AOD.fprj`: 초 틱을 제거한 AOD 프로젝트
 - `assets/dot-on.png`, `assets/dot-off.png`: 워치페이스 엔진에 재사용할 PNG 원형 자산
 - `assets/preview-192x490-elongated-90.png`, `assets/preview-192x490-elongated-270.png`: 긴 세로 배치와 초 틱 참고 이미지
 
@@ -43,6 +43,8 @@ git clone --recurse-submodules <repository-url>
 ```
 
 Mi Create는 비공식 오픈소스 도구이며, 공식 Xiaomi 앱이나 Xiaomi SDK가 아닙니다. 현재 공개 패키지는 특정 도구의 내부 프로젝트 파일을 임의로 만들어 넣지 않고, 검증 가능한 자산과 매핑 정보를 보존하는 형태입니다.
+
+Mac의 Wine에서 Mi Create의 Windows 컴파일러를 실행하는 것은 현재 확인되지 않았습니다. `.fprj`가 열리지 않거나 컴파일러가 종료되면 Windows 10/11 환경에서 같은 프로젝트를 열어 빌드하세요. 이 저장소에는 아직 검증되지 않은 `.face` 파일을 포함하지 않습니다.
 
 ## 에뮬레이터/시뮬레이터 시험
 

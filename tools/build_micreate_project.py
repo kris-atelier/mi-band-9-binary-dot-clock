@@ -1,11 +1,12 @@
 from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, ElementTree
+import shutil
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / "projects" / "MiBand9BinaryDotClock"
 IMAGES = PROJECT / "images"
-AOD = PROJECT / "images_aod"
+AOD = PROJECT / "AOD"
 OUTPUT = PROJECT / "output"
 for folder in (IMAGES, AOD, OUTPUT):
     folder.mkdir(parents=True, exist_ok=True)
@@ -81,5 +82,7 @@ def make_project(path, aod=False):
     ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
 
 make_project(PROJECT / "MiBand9BinaryDotClock.fprj")
-make_project(PROJECT / "MiBand9BinaryDotClock-AOD.fprj", aod=True)
-
+(AOD / "images").mkdir(parents=True, exist_ok=True)
+for image in IMAGES.glob("*.png"):
+    shutil.copy2(image, AOD / "images" / image.name)
+make_project(AOD / "MiBand9BinaryDotClock-AOD.fprj", aod=True)
