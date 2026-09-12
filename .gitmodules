@@ -1,3 +1,6 @@
 [submodule "vendor/Mi-Create"]
 	path = vendor/Mi-Create
 	url = https://github.com/ooflet/Mi-Create.git
+[submodule "tools/miband9-cli"]
+	path = tools/miband9-cli
+	url = https://github.com/kris-atelier/miband9-cli.git

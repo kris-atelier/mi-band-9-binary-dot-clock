@@ -32,6 +32,8 @@ AM/PM 1bit
 
 이 프로젝트는 [Mi Create](https://github.com/ooflet/Mi-Create)로 옮기기 전 단계의 소스·자산 패키지입니다. 원본 도구는 `vendor/Mi-Create` Git submodule로 연결합니다. Mi Create는 Mi Band 9, `.fprj` 프로젝트, AOD 편집과 미리보기를 지원합니다. 실제 `.face` 컴파일은 Mi Create에서 대상 기기를 선택한 뒤 이 프로젝트의 PNG와 `watchface-config.json` 좌표를 배치해 진행합니다.
 
+macOS 쪽 파일 검증과 향후 BLE 연동은 [miband9-cli](https://github.com/kris-atelier/miband9-cli)를 `tools/miband9-cli` submodule로 연결합니다. 현재 CLI의 BLE 설치 명령은 안전한 placeholder이며, 검증되지 않은 Xiaomi 프로토콜을 임의로 전송하지 않습니다.
+
 Submodule까지 받으려면 다음처럼 초기화합니다.
 
 ```text
