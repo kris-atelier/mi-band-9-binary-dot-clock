@@ -25,12 +25,14 @@ AM/PM 1bit
 - `src/time-to-bits.js`: 실제 시간을 비트 배열로 바꾸는 순수 JavaScript 모듈
 - `src/watchface-config.json`: 192×490 좌표와 색상 설정
 - `src/preview.html`: 브라우저/에뮬레이터에서 현재 시간을 렌더링하는 독립 미리보기
+- `projects/MiBand9BinaryDotClock/MiBand9BinaryDotClock.fprj`: Mi Create에서 열 수 있는 일반 화면 프로젝트
+- `projects/MiBand9BinaryDotClock/MiBand9BinaryDotClock-AOD.fprj`: 초 틱을 제거한 AOD 프로젝트
 - `assets/dot-on.png`, `assets/dot-off.png`: 워치페이스 엔진에 재사용할 PNG 원형 자산
 - `assets/preview-192x490-elongated-90.png`, `assets/preview-192x490-elongated-270.png`: 긴 세로 배치와 초 틱 참고 이미지
 
 ## Mi Create로 가져가기
 
-이 프로젝트는 [Mi Create](https://github.com/ooflet/Mi-Create)로 옮기기 전 단계의 소스·자산 패키지입니다. 원본 도구는 `vendor/Mi-Create` Git submodule로 연결합니다. Mi Create는 Mi Band 9, `.fprj` 프로젝트, AOD 편집과 미리보기를 지원합니다. 실제 `.face` 컴파일은 Mi Create에서 대상 기기를 선택한 뒤 이 프로젝트의 PNG와 `watchface-config.json` 좌표를 배치해 진행합니다.
+이 프로젝트는 [Mi Create](https://github.com/ooflet/Mi-Create)로 옮기기 전 단계의 소스·자산 패키지입니다. 원본 도구는 `vendor/Mi-Create` Git submodule로 연결합니다. Mi Create는 Mi Band 9, `.fprj` 프로젝트, AOD 편집과 미리보기를 지원합니다. `projects/MiBand9BinaryDotClock/`의 `.fprj`를 열어 실제 프로젝트를 확인하고, Mi Create에서 대상 기기를 `Xiaomi Band 9`로 선택한 뒤 빌드하면 됩니다.
 
 macOS 쪽 파일 검증과 향후 BLE 연동은 [miband9-cli](https://github.com/kris-atelier/miband9-cli)를 `tools/miband9-cli` submodule로 연결합니다. 현재 CLI의 BLE 설치 명령은 안전한 placeholder이며, 검증되지 않은 Xiaomi 프로토콜을 임의로 전송하지 않습니다.
 
