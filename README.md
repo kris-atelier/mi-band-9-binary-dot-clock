@@ -44,13 +44,22 @@ git clone --recurse-submodules <repository-url>
 
 Mi Create는 비공식 오픈소스 도구이며, 공식 Xiaomi 앱이나 Xiaomi SDK가 아닙니다. 현재 공개 패키지는 특정 도구의 내부 프로젝트 파일을 임의로 만들어 넣지 않고, 검증 가능한 자산과 매핑 정보를 보존하는 형태입니다.
 
+macOS에서 소스 실행은 Mi Create 소스 디렉터리를 작업 디렉터리로 사용해야 합니다.
+
+```text
+cd vendor/Mi-Create/src
+../../../.venv-micreate/bin/python main.py ../../../projects/MiBand9BinaryDotClock/MiBand9BinaryDotClock.fprj
+```
+
+첫 실행에는 숨은 언어 선택 창이 나타나지 않도록 기본 언어를 자동 선택합니다. 현재 Mi Create의 macOS 컴파일러는 지원되지 않으므로, 프로젝트 편집·미리보기까지만 사용할 수 있습니다.
+
 Mac의 Wine에서 Mi Create의 Windows 컴파일러를 실행하는 것은 현재 확인되지 않았습니다. `.fprj`가 열리지 않거나 컴파일러가 종료되면 Windows 10/11 환경에서 같은 프로젝트를 열어 빌드하세요. 이 저장소에는 아직 검증되지 않은 `.face` 파일을 포함하지 않습니다.
 
 ## 에뮬레이터/시뮬레이터 시험
 
 `src/preview.html`을 브라우저에서 열면 현재 시간이 자동으로 갱신됩니다. 워치페이스 엔진에서는 `time-to-bits.js`의 `getDisplayState(new Date())` 결과를 11개의 비트 슬롯에 연결하면 됩니다.
 
-기본 방향은 90°이며, 270° 방향은 다음처럼 확인할 수 있습니다. 비트 행 전체를 192×490 화면의 긴 축에 맞춰 세로로 사용하며, 시와 분 사이의 큰 간격이 구분자 역할을 합니다.
+기본 미리보기 방향은 180° 뒤집힌 세로 화면입니다. 90°와 270°는 가로 회전 확인용이며, 원본 세로 배치는 `rotation=0`으로 확인할 수 있습니다. 180°에서는 초 레일이 세로 방향을 유지한 채 위아래만 뒤집힙니다.
 
 ```text
 src/preview.html?rotation=270

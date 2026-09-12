@@ -20,9 +20,12 @@ def elongated_preview(angle, filename):
     image = Image.new("RGB", (192, 490), (0, 0, 0))
     target = ImageDraw.Draw(image)
     ys = [40, 88, 124, 160, 196, 232, 304, 330, 356, 382, 408, 434]
+    # The face is read from the bottom edge in the 90-degree orientation.
+    # Keep the 270-degree reference as the opposite physical direction.
+    display = list(reversed(bits))
     if angle == 270:
-        ys.reverse()
-    for y, bit in zip(ys, bits):
+        display.reverse()
+    for y, bit in zip(ys, display):
         color = (255, 255, 255) if bit else (21, 21, 21)
         target.ellipse((90, y - 6, 101, y + 5), fill=color)
     target.rectangle((125, 40, 126, 434), fill=(16, 16, 16))

@@ -3,32 +3,54 @@
 <title>Mi Band 9 Binary Dot Clock Preview</title>
 <style>
   body { margin: 0; background: #222; display: grid; place-items: center; min-height: 100vh; }
-  canvas { width: 192px; height: 490px; image-rendering: pixelated; background: #000; }
+  canvas { width: min(92vw, 490px); height: auto; image-rendering: pixelated; background: #000; }
 </style>
-<canvas id="screen" width="192" height="490"></canvas>
+<canvas id="screen"></canvas>
 <script type="module">
   import { getDisplayState } from './time-to-bits.js';
   const canvas = document.querySelector('#screen');
   const ctx = canvas.getContext('2d');
+  const PORTRAIT_W = 192, PORTRAIT_H = 490;
   const bitY = [40, 88, 124, 160, 196, 304, 330, 356, 382, 408, 434];
-  const rotation = new URLSearchParams(location.search).get('rotation') === '270' ? 270 : 90;
-  const batteryParam = new URLSearchParams(location.search).get('battery');
-  const orderedY = rotation === 270 ? [...bitY].reverse() : bitY;
+  const params = new URLSearchParams(location.search);
+  const requestedRotation = Number(params.get('rotation'));
+  const rotation = [0, 90, 180, 270].includes(requestedRotation) ? requestedRotation : 180;
+  const batteryParam = params.get('battery');
+  const weatherParam = params.get('weather');
+  const temperatureParam = params.has('temp') ? Number(params.get('temp')) : null;
+  const landscape = rotation === 90 || rotation === 270;
+  canvas.width = landscape ? PORTRAIT_H : PORTRAIT_W;
+  canvas.height = landscape ? PORTRAIT_W : PORTRAIT_H;
   const drawDot = (x, y, on, color = null) => {
     ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2);
     ctx.fillStyle = on ? (color || '#fff') : '#151515'; ctx.fill();
   };
-  function drawSecondRail(second) {
+  function drawPortrait(second, s) {
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, PORTRAIT_W, PORTRAIT_H);
+    const slots = [s.amPmVisible, ...s.hourBits, ...s.minuteBits];
+    bitY.forEach((y, i) => drawDot(96, y, slots[i], i === 0 ? s.amPmColor : null));
     const yStart = 40, yEnd = 434, x = 125;
     ctx.fillStyle = '#101010'; ctx.fillRect(x, yStart, 2, yEnd - yStart);
     const y = yStart + (yEnd - yStart) * second / 59;
-    ctx.fillStyle = '#fff'; ctx.fillRect(x - 3, y - 4, 8, 8);
+    ctx.fillStyle = s.temperatureColor; ctx.fillRect(x - 3, y - 4, 8, 8);
   }
   function render() {
     const battery = batteryParam === null ? null : Number(batteryParam);
-    const s = getDisplayState(new Date(), battery); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, 192, 490);
-    [s.amPmVisible, ...s.hourBits, ...s.minuteBits].forEach((bit, i) => drawDot(96, orderedY[i], bit, i === 0 && s.chargingNeeded ? '#FF3B30' : null));
-    drawSecondRail(s.second);
+    const s = getDisplayState(new Date(), battery, weatherParam, temperatureParam);
+    if (rotation === 0) {
+      drawPortrait(s.second, s);
+      return;
+    }
+    ctx.save();
+    if (rotation === 180) {
+      ctx.translate(PORTRAIT_W, PORTRAIT_H);
+      ctx.rotate(Math.PI);
+    } else {
+      ctx.translate(rotation === 90 ? PORTRAIT_H : 0, rotation === 270 ? PORTRAIT_W : 0);
+      ctx.rotate((rotation === 90 ? 1 : -1) * Math.PI / 2);
+    }
+    drawPortrait(s.second, s);
+    ctx.restore();
   }
   render(); setInterval(render, 1000);
 </script>

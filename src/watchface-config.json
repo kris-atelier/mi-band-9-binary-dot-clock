@@ -26,6 +26,8 @@
     "colon": "#FFFFFF"
   },
   "battery": { "lowThresholdPercent": 20, "warningSlot": "amPm" },
+  "weather": { "timeColorSource": "Weather type (icon)", "rainColor": "#248BFF", "snowColor": "#BFE8FF", "cloudColor": "#777777", "clearColor": "#FFD43B" },
+  "temperature": { "tickColorSource": "Weather temp (C)", "ranges": [[0, "#248BFF"], [10, "#65D9FF"], [20, "#42D17A"], [30, "#FFAA33"], [null, "#FF4D4D"]] },
   "mapping": {
     "amPm": "state.amPm",
     "hourBits": "state.hourBits",

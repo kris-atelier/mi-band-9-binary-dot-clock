@@ -1,5 +1,6 @@
 from pathlib import Path
-from xml.etree.ElementTree import Element, SubElement, ElementTree
+from xml.etree.ElementTree import Element, SubElement, tostring
+from xml.dom import minidom
 import shutil
 from PIL import Image, ImageDraw
 
@@ -67,7 +68,7 @@ def widget(name, bitmap_list, x, y, width, height, source, default=0):
     }
 
 def make_project(path, aod=False):
-    root = Element("FaceProject", {"DeviceType": "366"})
+    root = Element("FaceProject", {"DeviceType": "366", "Id": "167210065"})
     screen = SubElement(root, "Screen", {"Title": "Binary Dot Clock", "Bitmap": "background.png"})
     if not aod:
         widgets = [
@@ -84,7 +85,8 @@ def make_project(path, aod=False):
         ]
     for data in widgets:
         SubElement(screen, "Widget", data)
-    ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
+    xml = minidom.parseString(tostring(root, encoding="utf-8"))
+    path.write_bytes(xml.toprettyxml(indent="  ", encoding="utf-8"))
 
 make_project(PROJECT / "MiBand9BinaryDotClock.fprj")
 (AOD / "images").mkdir(parents=True, exist_ok=True)
