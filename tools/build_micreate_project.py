@@ -58,7 +58,7 @@ def widget(name, bitmap_list, x, y, width, height, source, default=0):
         "Shape": "31", "Name": name, "BitmapList": "|".join(bitmap_list),
         "X": str(x), "Y": str(y), "Width": str(width), "Height": str(height),
         "Alpha": "255", "Alignment": "0", "DefaultIndex": str(default),
-        "Value_Src": source, "Spacing": "0", "Blanking": "0", "Visible_Src": "0"
+        "Index_Src": source, "Spacing": "0", "Blanking": "0", "Visible_Src": "0"
     }
 
 def make_project(path, aod=False):
