@@ -1,0 +1,33 @@
+{
+  "name": "Minimal Binary Dot Clock",
+  "canvas": { "width": 192, "height": 490, "background": "#000000" },
+  "refresh": "minute",
+  "orientation": 90,
+  "orientationOptions": [90, 270],
+  "bitOrder": "MSB_TO_LSB",
+  "layout": {
+    "dotDiameter": 12,
+    "dotRadius": 6,
+    "mode": "vertical-elongated",
+    "y": 245,
+    "x": {
+      "amPm": 96,
+      "hour": [96, 96, 96, 96],
+      "minute": [96, 96, 96, 96, 96, 96]
+    },
+    "bitY": [40, 88, 124, 160, 196, 304, 330, 356, 382, 408, 434],
+    "secondRail": { "x": 125, "yStart": 40, "yEnd": 434, "width": 2, "tickLength": 8 }
+  },
+  "colors": {
+    "on": "#FFFFFF",
+    "off": "#151515",
+    "chargingWarning": "#FF3B30",
+    "colon": "#FFFFFF"
+  },
+  "battery": { "lowThresholdPercent": 20, "warningSlot": "amPm" },
+  "mapping": {
+    "amPm": "state.amPm",
+    "hourBits": "state.hourBits",
+    "minuteBits": "state.minuteBits"
+  }
+}
