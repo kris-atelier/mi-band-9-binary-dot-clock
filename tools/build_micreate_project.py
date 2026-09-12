@@ -21,6 +21,10 @@ BIT_Y = [40, 88, 124, 160, 196, 304, 330, 356, 382, 408, 434]
 def bits(value, width):
     return [(value >> (width - i - 1)) & 1 for i in range(width)]
 
+def display_bits(value, width):
+    """Render MSB->LSB data from the bottom/right edge of the elongated face."""
+    return list(reversed(bits(value, width)))
+
 def dot_sprite(y, enabled=True, color=ON):
     image = Image.new("RGBA", (12, 12), BLACK)
     ImageDraw.Draw(image).ellipse((0, 0, 11, 11), fill=color if enabled else OFF)
@@ -42,9 +46,9 @@ Image.new("RGBA", (W, H), (0, 0, 0, 255)).save(IMAGES / "background.png")
 save("ampm-0.png", dot_sprite(0, False))
 save("ampm-1.png", dot_sprite(0, True))
 for hour in range(24):
-    save(f"hour-{hour:02d}.png", group_sprite(bits(hour % 12 or 12, 4), 60))
+    save(f"hour-{hour:02d}.png", group_sprite(display_bits(hour % 12 or 12, 4), 60))
 for minute in range(60):
-    save(f"minute-{minute:02d}.png", group_sprite(bits(minute, 6), 78))
+    save(f"minute-{minute:02d}.png", group_sprite(display_bits(minute, 6), 78))
 for second in range(60):
     rail = Image.new("RGBA", (8, 395), BLACK)
     draw = ImageDraw.Draw(rail)

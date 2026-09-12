@@ -13,7 +13,7 @@ AM/PM 1bit
 
 - 숫자, 영문, 날짜, 심박, 걸음 수, 날씨를 표시하지 않습니다.
 - 왼쪽부터 `AM/PM 1bit`, 12시간제 시각의 4비트, 넓은 구분 간격, 분의 6비트입니다.
-- 비트는 MSB→LSB 순서입니다. 예: 7시는 `0111`, 5분은 `000101`입니다.
+- 값 자체는 MSB→LSB로 계산하지만, 화면에서는 낮은 자리(LSB)가 아래쪽에 오도록 배치합니다. 가로로 돌려 읽으면 LSB가 오른쪽 끝에 옵니다. 예: 7시는 원래 `0111`이고 화면 위→아래는 `1110`, 아래→위로 읽으면 `0111`입니다. 5분도 원래 `000101`이고 화면 위→아래는 `101000`, 아래→위로 읽으면 `000101`입니다.
 - 켜진 비트는 흰색 꽉 찬 원, 꺼진 비트는 매우 어두운 회색 빈 원입니다.
 - 12시는 `1100`으로 표현합니다. 오전/오후는 별도 점 하나로 구분합니다.
 - AM/PM 점과 시 비트 사이에는 넓은 간격을 둡니다.
@@ -67,8 +67,8 @@ src/preview.html?battery=18
 ```js
 const state = getDisplayState(new Date());
 // state.amPm: 0 또는 1
-// state.hourBits: 길이 4, MSB→LSB
-// state.minuteBits: 길이 6, MSB→LSB
+// state.hourBits: 길이 4, 화면 기준 아래→위(가로 보기에서는 오른쪽→왼쪽)
+// state.minuteBits: 길이 6, 화면 기준 아래→위(가로 보기에서는 오른쪽→왼쪽)
 // getDisplayState(date, batteryPercent)에서 batteryPercent <= 20이면
 // state.amPmVisible=1, state.amPmColor='#FF3B30'이 됩니다.
 ```

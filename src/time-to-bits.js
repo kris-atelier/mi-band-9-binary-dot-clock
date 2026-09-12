@@ -9,6 +9,12 @@ function toBits(value, width) {
   );
 }
 
+function toDisplayBits(value, width) {
+  // The elongated face is read from the bottom edge (right edge in the
+  // corresponding horizontal/90-degree view), while the data stays MSB-first.
+  return toBits(value, width).reverse();
+}
+
 function getDisplayState(date = new Date(), batteryPercent = null) {
   const rawHour = date.getHours();
   const hour12 = rawHour % 12 || 12;
@@ -22,12 +28,12 @@ function getDisplayState(date = new Date(), batteryPercent = null) {
     amPmColor: chargingNeeded ? '#FF3B30' : '#FFFFFF',
     hour12,
     minute,
-    hourBits: toBits(hour12, 4),
-    minuteBits: toBits(minute, 6),
+    hourBits: toDisplayBits(hour12, 4),
+    minuteBits: toDisplayBits(minute, 6),
     second: date.getSeconds(),
     secondProgress: date.getSeconds() / 59,
-    slots: [chargingNeeded ? 1 : (rawHour >= 12 ? 1 : 0), ...toBits(hour12, 4), ...toBits(minute, 6)],
+    slots: [chargingNeeded ? 1 : (rawHour >= 12 ? 1 : 0), ...toDisplayBits(hour12, 4), ...toDisplayBits(minute, 6)],
   };
 }
 
-if (typeof module !== 'undefined') module.exports = { getDisplayState, toBits };
+if (typeof module !== 'undefined') module.exports = { getDisplayState, toBits, toDisplayBits };

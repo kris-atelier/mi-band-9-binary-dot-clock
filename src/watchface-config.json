@@ -4,11 +4,12 @@
   "refresh": "minute",
   "orientation": 90,
   "orientationOptions": [90, 270],
-  "bitOrder": "MSB_TO_LSB",
+  "bitOrder": "LSB_TO_MSB_FROM_BOTTOM_OR_RIGHT",
   "layout": {
     "dotDiameter": 12,
     "dotRadius": 6,
     "mode": "vertical-elongated",
+    "readingDirection": "bottom-to-top; right-to-left in horizontal view",
     "y": 245,
     "x": {
       "amPm": 96,
